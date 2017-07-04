@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This little tool provides a Plex Webhook server which along with a ISY controller, allows automatially controls your theatre lighting.
+This little tool provides a Plex Webhook server which along with a ISY controller will automatially control your theatre lighting.
 
 ## Configuration
 

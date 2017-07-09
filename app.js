@@ -5,24 +5,33 @@ var express = require("express"),
     request = require("request").defaults({ strictSSL: false }),
     parseString = require('xml2js').parseString,
     express = require("express"),
-    multer = require('multer');
+    multer = require('multer'),
+    config = require('./config.json');
 
 // START CONFIGURATION HERE.
 
 // Plex Webhook Port 
-var port = 90;
+var port = config.plexWebhookPort;
 
 // ISY Config
-var username = "admin"
-var password = "admin"
-var isy_ip = "https://10.0.1.5"
+var username = config.isyUsername;
+var password = config.isyPassword;
+var isy_ip = config.isyAddress;
 
 // Actions (Plex Client uuid, play light level, stop level, resume level, pause level)
 // Levels range from 0-255
 // To get your uuid, run this app and start a movie using your player
 // the uuid of your player will be shown in the console log.
 function registerClients() {
-    registerPlexClient("wti8krp6qezy3nmi", "Family Room Lights", 25, 255, 25, 80);
+    config.plexClients.forEach((item) => {
+        console.log("Registering Plex Client UUID: " + item.uuid);
+        registerPlexClient(item.uuid,
+            item.isyNodeName,
+            item.playLightLevel,
+            item.stopLightLevel,
+            item.resumeLightLevel,
+            item.pauseLightLevel);
+    });
 }
 
 // END CONFIGURATION - Shouldn't need to touch anything below this line.
@@ -83,17 +92,18 @@ var upload = multer({ dest: '/tmp/' });
 var app = express();
 
 app.post("/", upload.single('thumb'), (req, res, next) => {
-    var payload = JSON.parse(req.body.payload);
 
-    var handled = false;
     if (registeredClients[payload.Player.uuid]) {
+
+        var payload = JSON.parse(req.body.payload);
+
         if (registeredClients[payload.Player.uuid][payload.event])
             registeredClients[payload.Player.uuid][payload.event]();
     }
     else {
-        console.log("Event from unhandled device: " + payload.Player.uuid + ", event: " + payload.event);
+        console.log("Event from unhandled Plex Player uuid: " + payload.Player.uuid + ", event: " + payload.event);
     }
-    
+
     res.sendStatus("200");
 });
 

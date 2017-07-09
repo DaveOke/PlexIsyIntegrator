@@ -1,0 +1,16 @@
+{
+  "plexWebhookPort": 90,
+  "isyAddress": "https://10.0.1.5",
+  "isyUsername": "admin",
+  "isyPassword": "admin",
+  "plexClients": [
+    {
+      "uuid": "wti8krp6qezy3nmi",
+      "isyNodeName": "Family Room Lights",
+      "playLightLevel": 25,
+      "stopLightLevel": 180,
+      "resumeLightLevel": 25,
+      "pauseLightLevel": 80
+    }
+  ]
+}

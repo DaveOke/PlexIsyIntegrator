@@ -10,9 +10,24 @@ Edit app.js to enter your ISY credentials.
 Start the service
 Set up a plex webhook to point at the service
 Start a movie to get your plex client uuid
-Register your plex client in app.js, set which lights you want controlled and at what levels
+Register your plex client in config.js, set which lights you want controlled and at what levels
 
-	registerPlexClient("plex_client_uuid", "ISY Device Name", 25, 255, 25, 80);
+	{
+	  "plexWebhookPort": 90,
+	  "isyAddress": "https://10.0.1.5",
+	  "isyUsername": "admin",
+	  "isyPassword": "admin",
+	  "plexClients": [
+		{
+		  "uuid": "abc123",
+		  "isyNodeName": "Theatre Lights",
+		  "playLightLevel": 25,
+		  "stopLightLevel": 180,
+		  "resumeLightLevel": 25,
+		  "pauseLightLevel": 80
+		}
+	  ], [{...next plex client...}]
+	}
 
 ## License
 

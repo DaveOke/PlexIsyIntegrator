@@ -32,10 +32,10 @@ Register your plex client in config.js, set which lights you want controlled and
 ## Installation
 
 Requires Node.JS & NPM. Install forever, forever-service to run an a system service
-	- Clone to your folder
-	- Run npm install
-	- use node.js to run app.js.
-	- Once configuered, use forever-service to install as a system service.
+	* Clone to your folder
+	* Run npm install
+	* use node.js to run app.js.
+	* Once configuered, use forever-service to install as a system service.
 
 ## License
 

@@ -93,9 +93,9 @@ var app = express();
 
 app.post("/", upload.single('thumb'), (req, res, next) => {
 
-    if (registeredClients[payload.Player.uuid]) {
+    var payload = JSON.parse(req.body.payload);
 
-        var payload = JSON.parse(req.body.payload);
+    if (registeredClients[payload.Player.uuid]) {
 
         if (registeredClients[payload.Player.uuid][payload.event])
             registeredClients[payload.Player.uuid][payload.event]();
